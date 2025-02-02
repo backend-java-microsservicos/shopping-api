@@ -2,6 +2,7 @@ package mz.co.muianga.shoppingapi.service;
 
 import mz.co.muianga.shoppingapi.dto.ItemDTO;
 import mz.co.muianga.shoppingapi.dto.ShopDTO;
+import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.model.Shop;
 import mz.co.muianga.shoppingapi.repository.ShopRepository;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,25 @@ public class ShopService {
         shop.setDate(new Date());
         shop = shopRepository.save(shop);
         return ShopDTO.convert(shop);
+    }
+
+    public List<ShopDTO> getShopsByFilter(
+            Date dataInicio,
+            Date dataFim,
+            Float valorMinimo) {
+        List<Shop> shops =
+                shopRepository
+                        .getShopByFilters(dataInicio, dataFim, valorMinimo);
+        return shops
+                .stream()
+                .map(ShopDTO::convert)
+                .toList();
+    }
+
+    public ShopReportDTO getReportByDate(
+            Date dataInicio,
+            Date dataFim) {
+        return shopRepository
+                .getReportByDate(dataInicio, dataFim);
     }
 }

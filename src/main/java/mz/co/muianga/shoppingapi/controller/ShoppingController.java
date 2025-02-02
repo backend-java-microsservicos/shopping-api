@@ -2,9 +2,12 @@ package mz.co.muianga.shoppingapi.controller;
 
 import jakarta.validation.Valid;
 import mz.co.muianga.shoppingapi.dto.ShopDTO;
+import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.service.ShopService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,5 +47,26 @@ public class ShoppingController {
     @PostMapping
     public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
         return shopService.save(shopDTO);
+    }
+
+    @GetMapping("/search")
+    public List<ShopDTO> getShopsByFilter(@RequestParam(name = "dataInicio", required = true)
+                                          @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
+                                          @RequestParam(name = "dataFim", required = false)
+                                          @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim,
+                                          @RequestParam(name = "valorMinimo", required = false)
+                                          Float valorMinimo) {
+
+        return shopService.getShopsByFilter(dataInicio, dataFim, valorMinimo);
+    }
+
+    @GetMapping("/report")
+    public ShopReportDTO getReportByDate(
+            @RequestParam(name = "dataInicio")
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
+            @RequestParam(name = "dataFim")
+            @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim) {
+
+        return shopService.getReportByDate(dataInicio, dataFim);
     }
 }
