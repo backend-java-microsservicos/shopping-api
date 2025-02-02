@@ -1,5 +1,6 @@
 package mz.co.muianga.shoppingapi.service;
 
+import mz.co.muianga.shoppingapi.converter.DTOConverter;
 import mz.co.muianga.shoppingapi.dto.ItemDTO;
 import mz.co.muianga.shoppingapi.dto.ShopDTO;
 import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
@@ -23,7 +24,7 @@ public class ShopService {
     public List<ShopDTO> getAll() {
         return shopRepository.findAll()
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .toList();
     }
 
@@ -31,7 +32,7 @@ public class ShopService {
         return shopRepository
                 .findAllByUserIdentifier(userIdentifier)
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .toList();
     }
 
@@ -39,13 +40,13 @@ public class ShopService {
         return shopRepository
                 .findAllByDateGreaterThan(shopDTO.getDate())
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .toList();
     }
 
     public ShopDTO findById(long id) {
         Optional<Shop> shop = shopRepository.findById(id);
-        return shop.map(ShopDTO::convert).orElse(null);
+        return shop.map(DTOConverter::convert).orElse(null);
 
     }
 
@@ -54,10 +55,10 @@ public class ShopService {
                 .stream()
                 .map(ItemDTO::getPrice)
                 .reduce((float) 0, Float::sum));
-        Shop shop = Shop.convert(shopDTO);
+        Shop shop = DTOConverter.convert(shopDTO);
         shop.setDate(new Date());
         shop = shopRepository.save(shop);
-        return ShopDTO.convert(shop);
+        return DTOConverter.convert(shop);
     }
 
     public List<ShopDTO> getShopsByFilter(
@@ -69,7 +70,7 @@ public class ShopService {
                         .getShopByFilters(dataInicio, dataFim, valorMinimo);
         return shops
                 .stream()
-                .map(ShopDTO::convert)
+                .map(DTOConverter::convert)
                 .toList();
     }
 
