@@ -1,9 +1,9 @@
 package mz.co.muianga.shoppingapi.converter;
 
-import mz.co.muianga.shoppingapi.dto.ItemDTO;
-import mz.co.muianga.shoppingapi.dto.ShopDTO;
 import mz.co.muianga.shoppingapi.model.Item;
 import mz.co.muianga.shoppingapi.model.Shop;
+import mz.co.muianga.shoppingclient.dto.ItemDTO;
+import mz.co.muianga.shoppingclient.dto.ShopDTO;
 
 public class DTOConverter {
 

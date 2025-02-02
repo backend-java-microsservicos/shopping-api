@@ -1,9 +1,9 @@
 package mz.co.muianga.shoppingapi.controller;
 
 import jakarta.validation.Valid;
-import mz.co.muianga.shoppingapi.dto.ShopDTO;
-import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.service.ShopService;
+import mz.co.muianga.shoppingclient.dto.ShopDTO;
+import mz.co.muianga.shoppingclient.dto.ShopReportDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 

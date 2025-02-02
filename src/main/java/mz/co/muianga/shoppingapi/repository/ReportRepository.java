@@ -1,7 +1,7 @@
 package mz.co.muianga.shoppingapi.repository;
 
-import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.model.Shop;
+import mz.co.muianga.shoppingclient.dto.ShopReportDTO;
 
 import java.util.Date;
 import java.util.List;

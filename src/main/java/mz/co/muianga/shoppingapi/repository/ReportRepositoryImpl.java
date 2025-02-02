@@ -3,10 +3,9 @@ package mz.co.muianga.shoppingapi.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.model.Shop;
+import mz.co.muianga.shoppingclient.dto.ShopReportDTO;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 

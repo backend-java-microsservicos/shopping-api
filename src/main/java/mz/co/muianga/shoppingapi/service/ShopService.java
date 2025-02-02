@@ -1,11 +1,11 @@
 package mz.co.muianga.shoppingapi.service;
 
 import mz.co.muianga.shoppingapi.converter.DTOConverter;
-import mz.co.muianga.shoppingapi.dto.ItemDTO;
-import mz.co.muianga.shoppingapi.dto.ShopDTO;
-import mz.co.muianga.shoppingapi.dto.ShopReportDTO;
 import mz.co.muianga.shoppingapi.model.Shop;
 import mz.co.muianga.shoppingapi.repository.ShopRepository;
+import mz.co.muianga.shoppingclient.dto.ItemDTO;
+import mz.co.muianga.shoppingclient.dto.ShopDTO;
+import mz.co.muianga.shoppingclient.dto.ShopReportDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
