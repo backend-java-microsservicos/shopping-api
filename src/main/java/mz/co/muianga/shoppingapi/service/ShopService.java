@@ -1,9 +1,11 @@
 package mz.co.muianga.shoppingapi.service;
 
+import lombok.AllArgsConstructor;
 import mz.co.muianga.shoppingapi.converter.DTOConverter;
 import mz.co.muianga.shoppingapi.model.Shop;
 import mz.co.muianga.shoppingapi.repository.ShopRepository;
 import mz.co.muianga.shoppingclient.dto.ItemDTO;
+import mz.co.muianga.shoppingclient.dto.ProductDTO;
 import mz.co.muianga.shoppingclient.dto.ShopDTO;
 import mz.co.muianga.shoppingclient.dto.ShopReportDTO;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ShopService {
 
     private final ShopRepository shopRepository;
-
-    public ShopService(ShopRepository shopRepository) {
-        this.shopRepository = shopRepository;
-    }
+    private final ProductService productService;
+    private final UserService userService;
 
     public List<ShopDTO> getAll() {
         return shopRepository.findAll()
@@ -51,6 +52,13 @@ public class ShopService {
     }
 
     public ShopDTO save(ShopDTO shopDTO) {
+        if (userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
+            return null;
+        }
+
+        if (!validateProducts(shopDTO.getItems())) {
+            return null;
+        }
         shopDTO.setTotal(shopDTO.getItems()
                 .stream()
                 .map(ItemDTO::getPrice)
@@ -79,5 +87,16 @@ public class ShopService {
             Date dataFim) {
         return shopRepository
                 .getReportByDate(dataInicio, dataFim);
+    }
+
+    private boolean validateProducts(List<ItemDTO> items) {
+        for (ItemDTO item : items) {
+            ProductDTO productDTO = productService.getProductByIdentifier(item.getProductIdentifier());
+            if (productDTO == null) {
+                return false;
+            }
+            item.setPrice(productDTO.getPreco());
+        }
+        return true;
     }
 }
