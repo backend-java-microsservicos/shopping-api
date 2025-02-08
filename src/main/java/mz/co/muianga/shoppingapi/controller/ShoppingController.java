@@ -45,12 +45,13 @@ public class ShoppingController {
     }
 
     @PostMapping
-    public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
-        return shopService.save(shopDTO);
+    public ShopDTO newShop(@RequestHeader(name = "key") String key,
+            @Valid @RequestBody ShopDTO shopDTO) {
+        return shopService.save(shopDTO, key);
     }
 
     @GetMapping("/search")
-    public List<ShopDTO> getShopsByFilter(@RequestParam(name = "dataInicio", required = true)
+    public List<ShopDTO> getShopsByFilter(@RequestParam(name = "dataInicio")
                                           @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
                                           @RequestParam(name = "dataFim", required = false)
                                           @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFim,

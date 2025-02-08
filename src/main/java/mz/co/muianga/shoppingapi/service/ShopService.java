@@ -51,14 +51,11 @@ public class ShopService {
 
     }
 
-    public ShopDTO save(ShopDTO shopDTO) {
-        if (userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
-            return null;
-        }
+    public ShopDTO save(ShopDTO shopDTO, String key) {
+        userService.getUserByCpf(shopDTO.getUserIdentifier(), key);
 
-        if (!validateProducts(shopDTO.getItems())) {
-            return null;
-        }
+        validateProducts(shopDTO.getItems());
+
         shopDTO.setTotal(shopDTO.getItems()
                 .stream()
                 .map(ItemDTO::getPrice)
